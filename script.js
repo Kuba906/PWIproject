@@ -4,13 +4,18 @@ const Colors = ["red", "red", "green", "green", "blue", "blue", "brown", "brown"
 
 let elements = document.querySelectorAll("div");
 elements = [...elements];
-const startTime = new Date().getTime();
+let startTime;
 let currentEl = "";
 const pickedElements = [];
 const gameLength = elements.length / 2;
 let Score = 0;
+let check = false;
 
 const clickCard = function () {
+    if(check === false){
+        startTime = new Date().getTime();
+    }
+    check = true;
     let object = this;
     currentEl = object;
 
@@ -57,12 +62,10 @@ const init = function () {
         card.classList.add(Colors[position]);
         Colors.splice(position, 1);
     })
-    setTimeout(function () {
         elements.forEach(card => {
             card.classList.add("hidden")
             card.addEventListener("click", clickCard)
         })
-    }, 2000)
 };
 
 init()
