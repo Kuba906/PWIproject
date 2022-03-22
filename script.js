@@ -1,44 +1,39 @@
 
-const cardColors = ["red", "red", "green", "green", "blue", "blue", "brown", "brown", "yellow", "yellow", "gray", "gray", "cadetblue", "cadetblue", "violet", "violet", "lightgreen", "lightgreen"];
+const Colors = ["red", "red", "green", "green", "blue", "blue", "brown", "brown", "yellow", "yellow",
+ "gray", "gray", "cadetblue", "cadetblue", "violet", "violet", "lightgreen", "lightgreen"];
 
-let cards = document.querySelectorAll("div"); 
-cards = [...cards]; 
-
-
-const startTime = new Date().getTime(); 
-
-let activeCard = ""; 
-const activeCards = []; 
-
-const gameLength = cards.length / 2; 
-
-let gameResult = 0;
+let elements = document.querySelectorAll("div");
+elements = [...elements];
+const startTime = new Date().getTime();
+let currentEl = "";
+const pickedElements = [];
+const gameLength = elements.length / 2;
+let Score = 0;
 
 const clickCard = function () {
+    let object = this;
+    currentEl = object;
 
-    activeCard = this; 
+    if (currentEl == pickedElements[0]){
+         return;
+    }
 
-    if (activeCard == activeCards[0]) return;
+    currentEl.classList.remove("hidden");
 
-    activeCard.classList.remove("hidden"); 
-    if (activeCards.length === 0) {
-        console.log("1 element");
-        activeCards[0] = activeCard; 
+    if (pickedElements.length === 0) {
+        pickedElements[0] = currentEl;
         return;
-
     }
     else {
-        console.log("2 element");
-        cards.forEach(card => card.removeEventListener("click", clickCard))
-        activeCards[1] = activeCard;
+        elements.forEach(card => card.removeEventListener("click", clickCard))
+        pickedElements[1] = currentEl;
 
         setTimeout(function () {
-            if (activeCards[0].className === activeCards[1].className) {
-                console.log("wygrane")
-                activeCards.forEach(card => card.classList.add("off"))
-                gameResult++;
-                cards = cards.filter(card => !card.classList.contains("off"));
-                if (gameResult == gameLength) {
+            if (pickedElements[0].className === pickedElements[1].className) {
+                pickedElements.forEach(card => card.classList.add("off"))
+                Score++;
+                elements = elements.filter(card => !card.classList.contains("off"));
+                if (Score == gameLength) {
                     const endTime = new Date().getTime();
                     const gameTime = (endTime - startTime) / 1000
                     alert(`Udało się! Twój wynik to: ${gameTime} sekund`)
@@ -46,25 +41,24 @@ const clickCard = function () {
                 }
             }
             else {
-                console.log("przegrana")
-                activeCards.forEach(card => card.classList.add("hidden"))
+                pickedElements.forEach(card => card.classList.add("hidden"))
             }
-            activeCard = ""; 
-            activeCards.length = 0; 
-            cards.forEach(card => card.addEventListener("click", clickCard))
+            currentEl = "";
+            pickedElements.length = 0;
+            elements.forEach(card => card.addEventListener("click", clickCard))
 
         }, 500)
     }
 };
 
 const init = function () {
-    cards.forEach(card => {
-        const position = Math.floor(Math.random() * cardColors.length); 
-        card.classList.add(cardColors[position]);
-        cardColors.splice(position, 1);
+    elements.forEach(card => {
+        const position = Math.floor(Math.random() * Colors.length);
+        card.classList.add(Colors[position]);
+        Colors.splice(position, 1);
     })
     setTimeout(function () {
-        cards.forEach(card => {
+        elements.forEach(card => {
             card.classList.add("hidden")
             card.addEventListener("click", clickCard)
         })
