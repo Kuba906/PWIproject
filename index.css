@@ -24,10 +24,14 @@ a{
 }
 .gory{
     width:788px;
-    margin:auto;
+    margin: 10px;
+}
+.gory{
+    width:788px;
 }
 .gory img{
-    margin:auto;
+    width:788px;
+    margin: 10px;
 }
 
 .plansza {
@@ -96,4 +100,50 @@ div {
 h1{
     text-align: center;
     margin:30px auto;
+}
+.cointaner{
+    display:flex;
+
+}
+.wrapper{
+    display:flex;
+
+}
+@media (max-width: 1650px){
+    .gory img{
+        width:700px;
+        margin: 10px;
+    }
+
+}
+@media (max-width: 1500px){
+    .gory img{
+        width:650px;
+        margin: 10px;
+    }
+
+}
+@media (max-width: 1350px){
+    .gory img{
+        width:650px;
+        margin: 10px;
+    }
+    .wrapper{
+        display:block;
+        margin:auto;
+    }
+
+}
+
+
+@media (max-width: 850px){
+    .cointaner{
+        display:block;
+    
+    }
+    .gory img{
+        width:700px;
+        margin: 10px;
+    }
+
 }
